@@ -59,3 +59,21 @@ Commands:
  npm i express --save
  npm i nodemon --save-dev
  npm i body-parser --save
+ npm i mongoose --save
+ npm i dotenv --save
+
+Git commands:
+ git init
+ git add .
+ git commit -m "this is my first commit"
+ git add origin "link"
+ git push -u origin main
+
+
+.gitignore
+
+
+Connect with mongo db 
+    1. Create an account in mongodb atlas
+    2. Create a project
+    3. Create a cluster
