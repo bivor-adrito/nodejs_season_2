@@ -77,3 +77,11 @@ Connect with mongo db
     1. Create an account in mongodb atlas
     2. Create a project
     3. Create a cluster
+
+Task 1: Simple To-Do App:
+ 0. Create a new collection named tasks
+ 1. We will be able to create a Task
+ 2. We will be able to see all the tasks
+ 3. We will be able to see one task
+ 4. We will be able to change the task status from to-do => in-progress => done
+ 5. We will be able to delete a task
