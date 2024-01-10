@@ -11,7 +11,8 @@ app.use(bodyParser.json())
 connectDB()
 
 // routes
-app.use('/api/users', require('./routes/api/users'))
+app.use('/api/users', require('./routes/api/users')) //? User Route
+app.use('/api/tasks', require('./routes/api/tasks')) //? Task Route
 
 // define a simple route
 app.get('/', (req, res) => {

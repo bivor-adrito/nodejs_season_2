@@ -85,3 +85,12 @@ Task 1: Simple To-Do App:
  3. We will be able to see one task
  4. We will be able to change the task status from to-do => in-progress => done
  5. We will be able to delete a task
+
+ task: {
+    title: String,
+    description: String,
+    status: String,
+    createdAt: Date[UTC],
+    updatedAt: Date[UTC],
+
+ }
