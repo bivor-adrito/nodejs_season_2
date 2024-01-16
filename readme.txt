@@ -61,6 +61,8 @@ Commands:
  npm i body-parser --save
  npm i mongoose --save
  npm i dotenv --save
+ npm i jsonwebtoken --save
+ npm i bcrypt --save
 
 Git commands:
  git init
@@ -94,3 +96,5 @@ Task 1: Simple To-Do App:
     updatedAt: Date[UTC],
 
  }
+
+ password101 => KEY => fsdlkjgaklajfhadljkthcjihxcfkjbckljfh

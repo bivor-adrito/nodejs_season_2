@@ -1,23 +1,23 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const connectDB = require('./config/db')
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const connectDB = require("./config/db");
 
 // parse requests of content-type: application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 //connect with mongoDB
-connectDB()
+connectDB();
 
 // routes
-app.use('/api/users', require('./routes/api/users')) //? User Route
-app.use('/api/tasks', require('./routes/api/tasks')) //? Task Route
+app.use("/api/users", require("./routes/api/users")); //? User Route
+app.use("/api/tasks", require("./routes/api/tasks")); //? Task Route
 
 // define a simple route
-app.get('/', (req, res) => {
-    res.json({message: 'Welcome to my application.'})
-})
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to my application." });
+});
 
 // let users = []
 // let lastId = 0
@@ -71,9 +71,8 @@ app.get('/', (req, res) => {
 //     }
 // })
 
-
 //* Start the Server
-const port = 3001
+const port = 3001;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
-})
+  console.log(`Server is running on port ${port}`);
+});
