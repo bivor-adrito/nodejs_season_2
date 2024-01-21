@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authenticateToken = require('../../middleware/auth')
 
 //* create a user
 router.post("/", async (req, res) => {
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
 //* login a user
 router.post("/login", async (req, res) => {
   try {
-    const { type, email, password } = req.body;
+    const { type, email, password, refreshToken } = req.body;
     if (type == "email") {
       // Step 1: Find the user by email
       const user = await User.findOne({ email: email });
@@ -43,12 +44,12 @@ router.post("/login", async (req, res) => {
           const accessToken = jwt.sign(
             { email: user.email, id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" }
+            { expiresIn: "1m" }
           );
           const refreshToken = jwt.sign(
             { email: user.email, id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "30d" }
+            { expiresIn: "3m" }
           );
           const userObj = user.toJSON()
           userObj['accessToken']= accessToken
@@ -57,11 +58,57 @@ router.post("/login", async (req, res) => {
         }
       }
     } else {
+        if(!refreshToken){
+            res.status(401).json({message: 'Refresh token is not defined'})
+        }else{
+            jwt.verify(refreshToken, process.env.JWT_SECRET, async(err, payload) => {
+                if (err) {
+                  res.status(401).json({ message: "Unauthorized" });
+                  return;
+                } else {
+                    const id = payload.id
+                    const user = await User.findById(id)
+                    if(!user){
+                        res.status(401).json({ message: "User not found" });
+                    }else{
+                        const accessToken = jwt.sign(
+                            { email: user.email, id: user._id },
+                            process.env.JWT_SECRET,
+                            { expiresIn: "1m" }
+                          );
+                          const refreshToken = jwt.sign(
+                            { email: user.email, id: user._id },
+                            process.env.JWT_SECRET,
+                            { expiresIn: "3m" }
+                          );
+                          const userObj = user.toJSON()
+                          userObj['accessToken']= accessToken
+                          userObj['refreshToken']= refreshToken
+                          res.status(200).json(userObj)
+                    }
+                }
+              })
+        }
     }
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }
 });
+
+//* get user profile
+router.get("/profile", authenticateToken, async (req, res) => {
+    try {
+      const id = req.user.id;
+      const user = await User.findById(id);
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).json({ message: "User Not Found." });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong." });
+    }
+  });
 
 //* get all users
 router.get("/", async (req, res) => {
@@ -87,6 +134,8 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ message: "Something went wrong." });
   }
 });
+
+
 
 //* Update One User
 router.put("/:id", async (req, res) => {
