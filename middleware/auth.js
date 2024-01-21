@@ -6,7 +6,12 @@ module.exports = function (req, res, next) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
-  const token = authHeader && authHeader.split(" ")[1];
+  token = ''
+  if(authHeader){
+    authArray = authHeader.split(' ')
+    token = authArray[1]
+  }
+//   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
     res.status(401).json({ message: "Unauthorized" });
     return;

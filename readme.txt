@@ -98,3 +98,54 @@ Task 1: Simple To-Do App:
  }
 
  password101 => KEY => fsdlkjgaklajfhadljkthcjihxcfkjbckljfh
+
+
+ Simple Marketplace App [Single Vendor]:
+    There will be two types of users
+        1. Admin
+        2. Customer
+
+    Admin will be able to create a product
+    Admin will be able to upload an image on the product
+    Admin will be able to update a product
+    Admin will be able to see all the products
+    Admin will be able to see a specific product
+    Admin will be able to delete a product
+
+
+    Customer will NOT be able to create a product
+    Customer will NOT be able to upload an image on the product
+    Customer will NOT be able to update a product
+    Customer will be able to see all the products
+    Customer will be able to see a specific product
+    Customer will NOT be able to delete a product
+
+
+User: {
+    type: Admin, Customer
+}
+
+product: {
+    name: String
+    desc: String
+    madeIn: String
+    price: Number,
+    userId: Mongodb Object
+    fileId: MongoDb Object
+}
+
+file: {
+    name: String,
+    path: String
+}
+
+order: {
+    productId: Mongodb Object,
+    userId: Mongodb Object,
+    qty: Number,
+    total: Number,
+    purchaseDate: Date,
+    location: String.
+    expectedDeliveryDate: Date,
+    status: String [delivered, in-progress]
+}
