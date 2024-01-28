@@ -63,6 +63,7 @@ Commands:
  npm i dotenv --save
  npm i jsonwebtoken --save
  npm i bcrypt --save
+ npm install --save multer
 
 Git commands:
  git init
