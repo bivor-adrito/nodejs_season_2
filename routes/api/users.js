@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
       lname: req.body.lname,
       email: req.body.email,
       password: hash,
+      type: req.body.type ?? 'customer',
     };
     const user = new User(userObj);
     await user.save();
@@ -152,12 +153,12 @@ async function handleEmailLogin(email, res, password) {
 
 function getUserTokens(user, res) {
     const accessToken = jwt.sign(
-        { email: user.email, id: user._id },
+        { email: user.email, id: user._id, type: user.type },
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
     );
     const refreshToken = jwt.sign(
-        { email: user.email, id: user._id },
+        { email: user.email, id: user._id, type: user.type },
         process.env.JWT_SECRET,
         { expiresIn: "3d" }
     );
