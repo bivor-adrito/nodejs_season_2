@@ -64,6 +64,7 @@ Commands:
  npm i jsonwebtoken --save
  npm i bcrypt --save
  npm install --save multer
+ npm i express-validator --save
 
 Git commands:
  git init

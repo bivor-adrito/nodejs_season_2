@@ -14,6 +14,7 @@ connectDB();
 app.use("/api/users", require("./routes/api/users")); //? User Route
 app.use("/api/tasks", require("./routes/api/tasks")); //? Task Route
 app.use("/api/products", require("./routes/api/products")); //? Product Route
+app.use("/api/orders", require("./routes/api/orders")); //? Product Route
 
 // define a simple route
 app.get("/", (req, res) => {
